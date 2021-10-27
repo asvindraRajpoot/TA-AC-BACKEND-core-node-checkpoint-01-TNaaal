@@ -36,6 +36,7 @@ function handleRequest(req, res) {
 
             console.log(store);
             var parsedData = qs.parse(store);
+            if(parsedData.Username!=""){
             console.log(parsedData);
             fs.createReadStream('./form.html').pipe(res);
             fs.open(`./contacts/${parsedData.Username}.json`, 'wx', (err, fd) => {
@@ -59,6 +60,9 @@ function handleRequest(req, res) {
                     })
                 });
             })
+        }else{
+            res.end('Please Enter some Data');
+        }
         }
         else if (req.method === 'GET' && parsedUrl.pathname === '/users') {
 
